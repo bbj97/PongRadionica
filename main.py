@@ -17,7 +17,18 @@ def ballAnimation():
     if ball.colliderect(player) or ball.colliderect(opponent):
         # ballSpeedX = -1 * ballSpeedX
         ballSpeedX *= -1
-    
+
+
+def playerAnimation():
+    # Kretanje playera
+    player.y += playerSpeed
+
+    # Granice terena za igraca
+    if player.top <= 0:
+        player.top = 0
+    if player.bottom >= screenHeight:
+        player.bottom = screenHeight
+
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -59,15 +70,7 @@ while True:
 
     # Metoda za animaciju
     ballAnimation()
-
-    # Kretanje playera
-    player.y += playerSpeed
-
-    # Granice terena za igraca
-    if player.top <= 0:
-        player.top = 0
-    if player.bottom >= screenHeight:
-        player.bottom = screenHeight
+    playerAnimation()
 
     pygame.display.flip()
     clock.tick(60)
