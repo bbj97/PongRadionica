@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame, sys, random 
 
 def ballAnimation():
     global ballSpeedX, ballSpeedY
@@ -46,7 +46,11 @@ def opponentAnimation():
         opponent.top -= opponentSpeed
 
 def ballRestart():
+    global ballSpeedX, ballSpeedY 
     ball.center = (screenWidth/2, screenHeight/2)
+    ballSpeedX *= random.choice((-1,1))
+    ballSpeedY *= random.choice((-1,1))
+
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -69,8 +73,8 @@ lightGrey = (200,200,200)
 pygame.display.set_caption("Pong game")
 
 # Brzine lopte po osi
-ballSpeedX = 7
-ballSpeedY = -7
+ballSpeedX = 7 * random.choice((-1, 1))
+ballSpeedY = -7 * random.choice((-1, 1))
 playerSpeed = 0 # prvo vrijednost 0, objekt se ne kreće, zatim vrijednost 7
 opponentSpeed = 7 
 
