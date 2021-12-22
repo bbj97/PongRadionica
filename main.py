@@ -40,6 +40,11 @@ while True:
     if ball.left <= 0 or ball.right >= screenWidth:
         ballSpeedX *= -1
 
+    # Sudaranje lopte sa igracem i s protivnikom
+    if ball.colliderect(player) or ball.colliderect(opponent):
+        # ballSpeedX = -1 * ballSpeedX
+        ballSpeedX *= -1
+    
     # vizualizacije
     screen.fill(bgColor)
     pygame.draw.rect(screen, lightGrey, player)
