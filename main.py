@@ -53,12 +53,22 @@ pygame.display.set_caption("Pong game")
 # Brzine lopte po osi
 ballSpeedX = 7
 ballSpeedY = 7
-playerSpeed = 7 # prvo vrijednost 0, objekt se ne kreće, zatim vrijednost 7
+playerSpeed = 0 # prvo vrijednost 0, objekt se ne kreće, zatim vrijednost 7
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_DOWN:
+                playerSpeed += 7 # napraviti samo ovu, stisnit i odmah pustit tipku i pokazati
+            if event.key == pygame.K_UP:
+                playerSpeed -= 7 
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_DOWN:
+                playerSpeed -= 7
+            if event.key == pygame.K_UP:
+                playerSpeed += 7
         
 
     # Iscrtavanje objekata
