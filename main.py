@@ -11,7 +11,7 @@ def ballAnimation():
     if ball.top <= 0 or ball.bottom >= screenHeight:
         ballSpeedY *= -1
     if ball.left <= 0 or ball.right >= screenWidth:
-        ballSpeedX *= -1
+        ballRestart() # sudaranje s lijevim ili desnim zidom 
 
     # Sudaranje lopte sa igracem i s protivnikom
     if ball.colliderect(player) or ball.colliderect(opponent):
@@ -44,8 +44,9 @@ def opponentAnimation():
         opponent.top += opponentSpeed
     if opponent.bottom > ball.y:
         opponent.top -= opponentSpeed
-    
 
+def ballRestart():
+    ball.center = (screenWidth/2, screenHeight/2)
 
 pygame.init()
 clock = pygame.time.Clock()
