@@ -20,12 +20,25 @@ lightGrey = (200,200,200)
 
 pygame.display.set_caption("Pong game")
 
+# Brzine lopte po osi
+ballSpeedX = 7
+ballSpeedY = 7
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
 
+    # Animacija kretanja lopte
+    ball.x += ballSpeedX
+    ball.y += ballSpeedY
+
+    # Postavljanje granica terena za loptu
+    if ball.top <= 0 or ball.bottom >= screenHeight:
+        ballSpeedY *= -1
+    if ball.left <= 0 or ball.right >= screenWidth:
+        ballSpeedX *= -1
 
     # vizualizacije
     screen.fill(bgColor)
