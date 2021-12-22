@@ -42,12 +42,13 @@ pygame.display.set_caption("Pong game")
 # Brzine lopte po osi
 ballSpeedX = 7
 ballSpeedY = 7
-
+playerSpeed = 0 # prvo vrijednost 0, objekt se ne kreće, zatim vrijednost 7
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        
 
     # Iscrtavanje objekata
     screen.fill(bgColor)
@@ -58,6 +59,9 @@ while True:
 
     # Metoda za animaciju
     ballAnimation()
+
+    # Kretanje playera
+    player.y += playerSpeed
 
     pygame.display.flip()
     clock.tick(60)
