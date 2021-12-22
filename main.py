@@ -68,7 +68,7 @@ while True:
     pygame.draw.ellipse(screen, lightGrey, ball)
     pygame.draw.aaline(screen, lightGrey, (screenWidth/2,0), (screenWidth/2,screenHeight))
 
-    # Metoda za animaciju
+    # Funckije za animaciju
     ballAnimation()
     playerAnimation()
 
