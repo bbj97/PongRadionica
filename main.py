@@ -119,5 +119,8 @@ while True:
     playerText = gameFont.render(f"{playerScore}", False, lightGrey)
     screen.blit(playerText, (screenWidth/2+20,screenHeight/2))
 
+    opponentText = gameFont.render(f"{opponentScore}", False, lightGrey)
+    screen.blit(opponentText, (screenWidth/2-20,screenHeight/2))
+
     pygame.display.flip()
     clock.tick(60)
