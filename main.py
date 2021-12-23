@@ -1,7 +1,7 @@
 import pygame, sys, random 
 
 def ballAnimation():
-    global ballSpeedX, ballSpeedY, playerScore, opponentScore
+    global ballSpeedX, ballSpeedY, playerScore, opponentScore, scoreTime
 
     # Animacija kretanja lopte
     ball.x += ballSpeedX
@@ -14,11 +14,12 @@ def ballAnimation():
     # Rastavljen IF UVJET na dva dijela, dodan playerScore i opponentScore
     if ball.left <= 0:
         playerScore += 1
-        ballRestart()
+        scoreTime = pygame.time.get_ticks() # Biljezenje vremena kad se pogodi lijevi zid
+
 
     if ball.right >= screenWidth:
         opponentScore += 1
-        ballRestart() # sudaranje s lijevim ili desnim zidom 
+        scoreTime = pygame.time.get_ticks() # Bilježenje vremena kada se pogodi desni zid
 
     # Sudaranje lopte sa igracem i s protivnikom
     if ball.colliderect(player) or ball.colliderect(opponent):
@@ -53,10 +54,20 @@ def opponentAnimation():
         opponent.top -= opponentSpeed
 
 def ballRestart():
-    global ballSpeedX, ballSpeedY 
+    global ballSpeedX, ballSpeedY, scoreTime
+
+    currentTime = pygame.time.get_ticks()
     ball.center = (screenWidth/2, screenHeight/2)
-    ballSpeedX *= random.choice((-1,1))
-    ballSpeedY *= random.choice((-1,1))
+
+    if currentTime - scoreTime < 2100:
+        ballSpeedX, ballSpeedY = 0, 0       # Držanje lopte zaustavljenom 2.1s 
+    else: 
+        # Kretanje lopte u random smjeru nakon 2.1s 
+        ballSpeedX = 7 * random.choice((-1,1))
+        ballSpeedY = 7 * random.choice((-1,1))
+        scoreTime = None        
+
+
 
 
 pygame.init()
@@ -91,6 +102,8 @@ playerScore = 0
 opponentScore = 0
 gameFont = pygame.font.Font("Oswald-Regular.ttf", 32)
 
+# Timer
+scoreTime = None
 
 while True:
     for event in pygame.event.get():
@@ -116,6 +129,11 @@ while True:
     pygame.draw.ellipse(screen, lightGrey, ball)
     pygame.draw.aaline(screen, lightGrey, (screenWidth/2,0), (screenWidth/2,screenHeight))
 
+    # Restart lopte kad se pojavi scoreTime
+    if scoreTime:
+        ballRestart()
+    
+    
     # Funckije za animaciju
     ballAnimation()
     playerAnimation()
