@@ -79,6 +79,12 @@ playerSpeed = 0 # prvo vrijednost 0, objekt se ne kreće, zatim vrijednost 7
 opponentSpeed = 7 
 
 
+# Varijable za score tekst
+playerScore = 0
+opponentScore = 0
+gameFont = pygame.font.Font("Oswald-Regular.ttf", 32)
+
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -108,6 +114,10 @@ while True:
     playerAnimation()
     opponentAnimation()
     
+
+    # Ispis na screen
+    playerText = gameFont.render(f"{playerScore}", False, lightGrey)
+    screen.blit(playerText, (screenWidth/2+20,screenHeight/2))
 
     pygame.display.flip()
     clock.tick(60)
