@@ -1,7 +1,7 @@
 import pygame, sys, random 
 
 def ballAnimation():
-    global ballSpeedX, ballSpeedY
+    global ballSpeedX, ballSpeedY, playerScore, opponentScore
 
     # Animacija kretanja lopte
     ball.x += ballSpeedX
@@ -10,7 +10,14 @@ def ballAnimation():
     # Postavljanje granica terena za loptu
     if ball.top <= 0 or ball.bottom >= screenHeight:
         ballSpeedY *= -1
-    if ball.left <= 0 or ball.right >= screenWidth:
+
+    # Rastavljen IF UVJET na dva dijela, dodan playerScore i opponentScore
+    if ball.left <= 0:
+        playerScore += 1
+        ballRestart()
+
+    if ball.right >= screenWidth:
+        opponentScore += 1
         ballRestart() # sudaranje s lijevim ili desnim zidom 
 
     # Sudaranje lopte sa igracem i s protivnikom
