@@ -21,10 +21,24 @@ def ballAnimation():
         opponentScore += 1
         scoreTime = pygame.time.get_ticks() # Bilježenje vremena kada se pogodi desni zid
 
-    # Sudaranje lopte sa igracem i s protivnikom
-    if ball.colliderect(player) or ball.colliderect(opponent):
-        # ballSpeedX = -1 * ballSpeedX
-        ballSpeedX *= -1
+
+    # Sudaranje lopte sa igracem
+    if ball.colliderect(player) and ballSpeedX>0:
+        if abs(ball.right - player.left) < 10:
+            ballSpeedX *= -1
+        elif abs(ball.bottom - player.top) <10 and ballSpeedY > 0 :
+            ballSpeedY *= -1
+        elif abs(ball.top - player.bottom) < 10 and ballSpeedY < 0:
+            ballSpeedY *= -1
+            
+    # Sudaranje lopte s protivnikom
+    if ball.colliderect(opponent):
+        if abs(ball.left - opponent.left) < 10:
+            ballSpeedX *= -1
+        elif abs(ball.bottom - opponent.top) <10 and ballSpeedY > 0 :
+            ballSpeedY *= -1
+        elif abs(ball.top - opponent.bottom) < 10 and ballSpeedY < 0:
+            ballSpeedY *= -1
 
 
 def playerAnimation():
