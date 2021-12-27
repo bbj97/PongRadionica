@@ -61,11 +61,16 @@ def ballRestart():
 
     if currentTime - scoreTime < 2100:
         ballSpeedX, ballSpeedY = 0, 0       # Držanje lopte zaustavljenom 2.1s 
+        # CurrentTime - scoreTime, /700, 3-(), Round cijeli broj
+        countdownText = gameFont.render(f"{round(3-(currentTime-scoreTime)/700)}", False, lightGrey)
+        screen.blit(countdownText, (screenWidth/2,40))
     else: 
         # Kretanje lopte u random smjeru nakon 2.1s 
         ballSpeedX = 7 * random.choice((-1,1))
         ballSpeedY = 7 * random.choice((-1,1))
-        scoreTime = None        
+        scoreTime = None   
+
+         
 
 
 
@@ -103,7 +108,7 @@ opponentScore = 0
 gameFont = pygame.font.Font("Oswald-Regular.ttf", 32)
 
 # Timer
-scoreTime = None
+scoreTime = True
 
 while True:
     for event in pygame.event.get():
@@ -133,7 +138,7 @@ while True:
     if scoreTime:
         ballRestart()
     
-    
+
     # Funckije za animaciju
     ballAnimation()
     playerAnimation()
