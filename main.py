@@ -10,29 +10,34 @@ def ballAnimation():
     # Postavljanje granica terena za loptu
     if ball.top <= 0 or ball.bottom >= screenHeight:
         ballSpeedY *= -1
+        pygame.mixer.Sound.play(pongSound) # Reprodukcija zvuka
 
     # Rastavljen IF UVJET na dva dijela, dodan playerScore i opponentScore
     if ball.left <= 0:
+        pygame.mixer.Sound.play(scoreSound) # Reprodukcija zvuka
         playerScore += 1
         scoreTime = pygame.time.get_ticks() # Biljezenje vremena kad se pogodi lijevi zid
 
 
     if ball.right >= screenWidth:
+        pygame.mixer.Sound.play(scoreSound) # Reprodukcija zvuka
         opponentScore += 1
         scoreTime = pygame.time.get_ticks() # Bilježenje vremena kada se pogodi desni zid
 
 
     # Sudaranje lopte sa igracem
     if ball.colliderect(player) and ballSpeedX>0:
+        pygame.mixer.Sound.play(pongSound)
         if abs(ball.right - player.left) < 10:
             ballSpeedX *= -1
         elif abs(ball.bottom - player.top) <10 and ballSpeedY > 0 :
             ballSpeedY *= -1
         elif abs(ball.top - player.bottom) < 10 and ballSpeedY < 0:
             ballSpeedY *= -1
-            
+
     # Sudaranje lopte s protivnikom
     if ball.colliderect(opponent):
+        pygame.mixer.Sound.play(pongSound)
         if abs(ball.left - opponent.left) < 10:
             ballSpeedX *= -1
         elif abs(ball.bottom - opponent.top) <10 and ballSpeedY > 0 :
@@ -88,7 +93,7 @@ def ballRestart():
 
 
 
-
+pygame.mixer.pre_init(44100, -16, 2, 512) # Buffer zbog delay-a zvuka
 pygame.init()
 clock = pygame.time.Clock()
 
@@ -120,6 +125,12 @@ opponentSpeed = 7
 playerScore = 0
 opponentScore = 0
 gameFont = pygame.font.Font("Oswald-Regular.ttf", 32)
+
+
+# Varijable za zvuk
+pongSound = pygame.mixer.Sound("pong.ogg")
+scoreSound = pygame.mixer.Sound("score.ogg")
+
 
 # Timer
 scoreTime = True
